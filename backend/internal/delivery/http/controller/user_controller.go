@@ -5,7 +5,6 @@ import (
 	"backend/internal/usecase"
 	"backend/internal/utils"
 	"encoding/json"
-	"log"
 	"time"
 
 	"github.com/gofiber/fiber/v2"
@@ -124,7 +123,6 @@ func (c *UserController) LoginWithWeb3(ctx *fiber.Ctx) error {
 		return utils.JSONResponse(ctx, fiber.StatusInternalServerError, "Internal server error", nil, err.Error())
 	}
 
-	log.Printf("here guys")
 	user, err := c.UseCase.Web3Login(ctx.UserContext(), request)
 	if err != nil {
 		c.Log.Warnf("Failed to web3 login: %+v", err)

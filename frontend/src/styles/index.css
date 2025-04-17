@@ -19,3 +19,7 @@ body {
 .border-primary {
   border-color: #ff6e00;
 }
+
+.toast-progress-orange .Toastify__progress-bar {
+  background-color: #ff6e00;
+}

@@ -6,7 +6,7 @@ type User struct {
 	ID               int64      `gorm:"cloumn:id;primaryKey;autoIncrement"`
 	Name             string     `gorm:"column:name;type:varchar(255);not null"`
 	Address          *string    `gorm:"column:address;type:varchar(255);unique"`
-	Email            string     `gorm:"column:email;type:varchar(255);unique;not null"`
+	Email            *string    `gorm:"column:email;type:varchar(255);unique"`
 	Password         string     `gorm:"column:password"`
 	EmailVerifiedAt  *time.Time `gorm:"column:email_verified_at"`
 	ProfilePhotoPath *string    `gorm:"column:profile_photo_path;type:varchar(255)"`

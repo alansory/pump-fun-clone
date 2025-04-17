@@ -1,12 +1,12 @@
 package model
 
 type UserResponse struct {
-	ID        int64  `json:"id,omitempty"`
-	Name      string `json:"name,omitempty"`
-	Email     string `json:"email,omitempty"`
-	Active    bool   `json:"active,omitempty"`
-	CreatedAt int64  `json:"created_at,omitempty"`
-	UpdatedAt int64  `json:"updated,omitempty"`
+	ID        int64   `json:"id,omitempty"`
+	Name      string  `json:"name,omitempty"`
+	Email     *string `json:"email,omitempty"`
+	Active    bool    `json:"active,omitempty"`
+	CreatedAt int64   `json:"created_at,omitempty"`
+	UpdatedAt int64   `json:"updated,omitempty"`
 }
 
 type VerifyUserRequest struct {
@@ -15,7 +15,7 @@ type VerifyUserRequest struct {
 
 type RegisterUserRequest struct {
 	Name     string  `json:"name" validate:"required,max=100"`
-	Email    string  `json:"email" validate:"required,email,min=5"`
+	Email    *string `json:"email" validate:"required,email,min=5"`
 	Password string  `json:"password" validate:"required,min=8"`
 	Address  *string `json:"address"`
 }

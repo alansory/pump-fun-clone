@@ -26,7 +26,10 @@ func (r *UserRepository) FindOrCreateUserByAddress(db *gorm.DB, user *entity.Use
 	err := db.Where("address = ?", address).First(user).Error
 	if err != nil {
 		if err == gorm.ErrRecordNotFound {
-			user.Address = &address
+			user = &entity.User{
+				Address: &address,
+				Email:   nil,
+			}
 			if createErr := db.Create(user).Error; createErr != nil {
 				r.Log.Errorf("Failed to create user with address %s: %+v", address, createErr)
 				return createErr
