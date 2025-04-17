@@ -1,0 +1,21 @@
+@import "tailwindcss";
+
+body {
+  background-color: #09090b;
+  color: #e0e0e0;
+  font-family: Inter Variable,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif,"Apple Color Emoji","Segoe UI Emoji",Segoe UI Symbol,"Noto Color Emoji";
+}
+
+.bg-gray-900 {
+  --un-bg-opacity:1;
+  background-color: #18181b;
+}
+
+.bg-primary {
+  --un-bg-opacity:1;
+  background-color: #09090b;
+}
+
+.border-primary {
+  border-color: #ff6e00;
+}
