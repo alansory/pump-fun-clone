@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link, useLocation } from 'react-router-dom';
 import WalletIcon from "../../assets/img/wallet.svg";
 import SolIcon from "../../assets/img/sol-logo.svg";
 import ProfileSidebar from "./ProfileSidebar";
@@ -26,10 +27,25 @@ interface LoginResponse {
 
 const Header: React.FC = () => {
   const [walletAddress, setWalletAddress] = useState<string | null>(null);
-  const [isModalOpen, setIsModalOpen] = useState(false); // State to control modal visibility
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [balance, setBalance] = useState(0);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
+  const [selectedMenu, setSelectedMenu] = useState<string | null>(null);
 
+  const location = useLocation();
+
+  useEffect(() => {
+    switch (location.pathname){
+      case '/trade':
+        setSelectedMenu("trade");
+        break;
+      case '/portfolio':
+        setSelectedMenu("portfolio");
+        break;
+      default:
+        setSelectedMenu(null)
+    }
+  }, [location.pathname])
 
   useEffect(() => {
     const savedWalletData = localStorage.getItem('pumpAuthData');
@@ -201,7 +217,31 @@ const Header: React.FC = () => {
     <div className="relative">
       {/* Header */}
       <header className="flex justify-between items-center px-2.5 py-1.5 h-14 bg-dark-bg border-b border-gray-800 z-50">
-        <div className="text-md font-bold text-white">Pump.pro</div>
+        <div className="flex items-center">
+          <Link 
+            to="/"
+            onClick={() => setSelectedMenu("home")}
+            className="text-md font-bold text-white"
+          >
+            Bumiswap
+          </Link>
+          <div className="ml-6">
+            <Link
+              to="/trade"
+              onClick={() => setSelectedMenu("trade")}
+              className={`px-2 py-2 ${selectedMenu === "trade" ? "text-orange-500" : "text-white"} text-sm text-orange-500 font-bold rounded-lg transition`}
+            >
+              Trade
+            </Link>
+            <Link
+              to="/portfolio"
+              onClick={() => setSelectedMenu("portfolio")}
+              className={`px-2 py-2 ${selectedMenu === "portfolio" ? "text-orange-500" : "text-white"} text-sm text-orange-500 font-bold rounded-lg transition`}
+            >
+              Portfolio
+            </Link>
+          </div>
+        </div>
         <nav className="space-x-4">
           {walletAddress ? (
             <div className="relative">

@@ -21,8 +21,7 @@ const ProfileSidebar: React.FC<ProfileSidebarProps> = ({
   if (!isOpen) return null;
 
   return (
-    // <div className="absolute right-0 mt-2 w-80 bg-[#1e2025] border border-gray-800 rounded-lg shadow-lg z-50 profile-sidebar">
-    <div className="fixed inset-y-0 right-0 w-full md:w-100 bg-[#1e2025] border-l border-gray-800 shadow-lg z-50 profile-sidebar overflow-y-auto">
+    <div className="fixed inset-y-0 right-0 w-full md:w-100 bg-black border-l border-gray-800 shadow-lg z-50 profile-sidebar overflow-y-auto">
       <div className="p-4">
         <h2 className="flex items-center text-lg text-white mb-4">
           <img src={WalletIcon} alt="Profile" className="w-5 h-5 mr-2 filter brightness-0 invert opacity-50" />
@@ -39,7 +38,7 @@ const ProfileSidebar: React.FC<ProfileSidebarProps> = ({
         </h2>
 
         {/* Address */}
-        <div className="bg-black/40 p-3 rounded-lg mb-4">
+        <div className="bg-[#1e2025] hover:bg-neutral-800 p-3 rounded-lg mb-4">
           <p className="text-sm text-gray-400 mb-1">Address</p>
           <div className="flex items-center justify-between">
             <span className="text-sm text-white font-mono break-all">{walletAddress}</span> {/* Display full address */}
@@ -64,19 +63,19 @@ const ProfileSidebar: React.FC<ProfileSidebarProps> = ({
 
         {/* Actions */}
         <div className="grid grid-cols-3 gap-2">
-          <button className="flex flex-col items-center justify-center p-3 bg-black/40 rounded-lg hover:bg-black/60">
+          <button className="flex flex-col items-center justify-center p-3 bg-[#1e2025] rounded-lg hover:bg-neutral-800">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-gray-400 mb-1">
               <path d="M3 15v4c0 1.1.9 2 2 2h14a2 2 0 0 0 2-2v-4M17 8l-5-5-5 5M12 3v12"/>
             </svg>
             <span className="text-xs text-gray-400">Deposit</span>
           </button>
-          <button className="flex flex-col items-center justify-center p-3 bg-black/40 rounded-lg hover:bg-black/60">
+          <button className="flex flex-col items-center justify-center p-3 bg-[#1e2025] rounded-lg hover:bg-neutral-800">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-gray-400 mb-1">
               <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/>
             </svg>
             <span className="text-xs text-gray-400">Withdraw</span>
           </button>
-          <button onClick={onLogout} className="flex flex-col items-center justify-center p-3 bg-black/40 rounded-lg hover:bg-black/60">
+          <button onClick={onLogout} className="flex flex-col items-center justify-center p-3 bg-[#1e2025] rounded-lg hover:bg-neutral-800">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-gray-400 mb-1">
               <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/>
             </svg>
@@ -98,18 +97,18 @@ const ProfileSidebar: React.FC<ProfileSidebarProps> = ({
           {/* Hide Options */}
           <div className="flex items-center space-x-4 text-sm text-gray-400">
             <label className="flex items-center space-x-2">
-              <input type="checkbox" className="form-checkbox bg-black/40 border-gray-800" />
+              <input type="checkbox" className="form-checkbox bg-[#1e2025] border-gray-800" />
               <span>Hide Frozen</span>
             </label>
             <label className="flex items-center space-x-2">
-              <input type="checkbox" className="form-checkbox bg-black/40 border-gray-800" />
+              <input type="checkbox" className="form-checkbox bg-[#1e2025] border-gray-800" />
               <span>Hide Small</span>
             </label>
           </div>
 
           {/* Token List */}
           <div className="mt-4">
-            <div className="flex items-center justify-between p-2 hover:bg-black/40 rounded-lg">
+            <div className="flex items-center justify-between p-2 hover:bg-[#1e2025] rounded-lg">
               <div className="flex items-center space-x-2">
                 <img src={SolIcon} alt="SOL" className="w-6 h-6" />
                 <span className="text-white">SOL</span>
