@@ -39,6 +39,12 @@ const Header: React.FC = () => {
       case '/trade':
         setSelectedMenu("trade");
         break;
+      case '/create':
+        setSelectedMenu("create");
+        break;
+      case '/swap':
+        setSelectedMenu("swap");
+        break;
       case '/portfolio':
         setSelectedMenu("portfolio");
         break;
@@ -232,6 +238,20 @@ const Header: React.FC = () => {
               className={`px-2 py-2 ${selectedMenu === "trade" ? "text-orange-500" : "text-white"} text-sm text-orange-500 font-bold rounded-lg transition`}
             >
               Trade
+            </Link>
+            <Link
+              to="/create"
+              onClick={() => setSelectedMenu("create")}
+              className={`px-2 py-2 ${selectedMenu === "create" ? "text-orange-500" : "text-white"} text-sm text-orange-500 font-bold rounded-lg transition`}
+            >
+              Create
+            </Link>
+            <Link
+              to="/swap"
+              onClick={() => setSelectedMenu("swap")}
+              className={`px-2 py-2 ${selectedMenu === "swap" ? "text-orange-500" : "text-white"} text-sm text-orange-500 font-bold rounded-lg transition`}
+            >
+              Swap
             </Link>
             <Link
               to="/portfolio"
