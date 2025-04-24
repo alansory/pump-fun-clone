@@ -1,9 +1,37 @@
 @import "tailwindcss";
 @tailwind utilities;
 
-@theme {
-  /* ... */
+@layer utilities {
+  .animate-border-glow {
+    position: relative;
+  }
+
+  .animate-border-glow::before,
+  .animate-border-glow::after {
+    content: '';
+    position: absolute;
+    left: -2px;
+    top: -2px;
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+    background: linear-gradient(90deg, #ff6e00, #ffa500, #ff6e00);
+    background-size: 200% 100%;
+    border-radius: 9999px;
+    z-index: -1;
+    animation: moveGradient 2s linear infinite;
+  }
+
+  .animate-border-glow::after {
+    filter: blur(8px);
+    opacity: 0.6;
+  }
+
+  @keyframes moveGradient {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 200% 50%; }
+  }
 }
+
 body {
   background-color: #09090b;
   color: #e0e0e0;

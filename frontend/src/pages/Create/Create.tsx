@@ -213,7 +213,7 @@ const Create: React.FC = () => {
           <div className="mt-8">
             <button
               type="submit"
-              className="w-full text-sm py-2 px-4 bg-orange-500 hover:bg-orange-600 text-black font-semibold rounded-lg transition duration-200"
+              className="w-full text-sm py-2 px-4 bg-orange-500 hover:bg-orange-600 text-white font-semibold rounded-lg ransition-colors duration-200"
               onClick={(e) => {
                 e.preventDefault();
               }}

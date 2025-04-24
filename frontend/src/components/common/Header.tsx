@@ -1,8 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation } from 'react-router-dom';
+import { HiMenu } from 'react-icons/hi';
 import WalletIcon from "../../assets/img/wallet.svg";
 import SolIcon from "../../assets/img/sol-logo.svg";
+// import Logo from "../../assets/img/jupiter-logo.png";
 import ProfileSidebar from "./ProfileSidebar";
+import MobileMenu from "../Mobile/MobileMenu/MobileMenu";
+import LoginModal from "../Modals/Login/LoginModal";
+import { IoEarth } from "react-icons/io5";
 import { Connection, PublicKey, clusterApiUrl, LAMPORTS_PER_SOL } from '@solana/web3.js';
 
 declare global {
@@ -31,6 +36,7 @@ const Header: React.FC = () => {
   const [balance, setBalance] = useState(0);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [selectedMenu, setSelectedMenu] = useState<string | null>(null);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false); // Add this state
 
   const location = useLocation();
 
@@ -61,6 +67,7 @@ const Header: React.FC = () => {
       setWalletAddress(walletData.address);
       setBalance(walletData.balance || 0);
     }
+
   }, [])
 
   useEffect(() => {
@@ -219,55 +226,70 @@ const Header: React.FC = () => {
     localStorage.removeItem('pumpAuthData');
   };
 
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
   return (
     <div className="relative">
       {/* Header */}
-      <header className="flex justify-between items-center px-2.5 py-1.5 h-14 bg-dark-bg border-b border-gray-800 z-50">
+      <header className="flex justify-between items-center px-2.5 py-1.5 h-14 bg-black border-b border-gray-800 z-50">
         <div className="flex items-center">
+          {/* Mobile Menu Button */}
+          <button 
+            className="md:hidden text-white"
+            onClick={toggleMobileMenu}
+          >
+            <HiMenu size={24} />
+          </button>
+          {/* <img alt="Logo" loading="lazy" decoding="async" data-nimg="1" src={Logo} className="ml-2 sm:ml-0 h-[22px] w-[22px] sm:w-[28px] sm:h-[28px]" /> */}
+          <IoEarth size={25} className="text-orange-500 sm:w-[30px] sm:h-[30px] ml-2 sm:ml-0" />
           <Link 
             to="/"
             onClick={() => setSelectedMenu("home")}
-            className="text-md font-bold text-white"
+            className="text-md ml-2 font-bold text-white"
           >
             Bumiswap
           </Link>
-          <div className="ml-6">
+          {/* Desktop Menu */}
+          <div className="ml-6 hidden md:block">
             <Link
               to="/trade"
               onClick={() => setSelectedMenu("trade")}
-              className={`px-2 py-2 ${selectedMenu === "trade" ? "text-orange-500" : "text-white"} text-sm text-orange-500 font-bold rounded-lg transition`}
+              className={`px-2 py-2 ${selectedMenu === "trade" ? "text-orange-500" : "text-white"} text-sm font-bold rounded-lg transition`}
             >
               Trade
             </Link>
             <Link
               to="/create"
               onClick={() => setSelectedMenu("create")}
-              className={`px-2 py-2 ${selectedMenu === "create" ? "text-orange-500" : "text-white"} text-sm text-orange-500 font-bold rounded-lg transition`}
+              className={`px-2 py-2 ${selectedMenu === "create" ? "text-orange-500" : "text-white"} text-sm font-bold rounded-lg transition`}
             >
               Create
             </Link>
             <Link
               to="/swap"
               onClick={() => setSelectedMenu("swap")}
-              className={`px-2 py-2 ${selectedMenu === "swap" ? "text-orange-500" : "text-white"} text-sm text-orange-500 font-bold rounded-lg transition`}
+              className={`px-2 py-2 ${selectedMenu === "swap" ? "text-orange-500" : "text-white"} text-sm font-bold rounded-lg transition`}
             >
               Swap
             </Link>
             <Link
               to="/portfolio"
               onClick={() => setSelectedMenu("portfolio")}
-              className={`px-2 py-2 ${selectedMenu === "portfolio" ? "text-orange-500" : "text-white"} text-sm text-orange-500 font-bold rounded-lg transition`}
+              className={`px-2 py-2 ${selectedMenu === "portfolio" ? "text-orange-500" : "text-white"} text-sm font-bold rounded-lg transition`}
             >
               Portfolio
             </Link>
           </div>
+          
         </div>
         <nav className="space-x-4">
           {walletAddress ? (
             <div className="relative">
-              <div onClick={() => setIsProfileOpen(!isProfileOpen)} className="flex items-center space-x-2 bg-[#1e2025] px-3 py-1.5 rounded-lg border border-gray-800">
+              <div onClick={() => setIsProfileOpen(!isProfileOpen)} className="flex items-center space-x-2 bg-[#1e2025] px-3 py-1.5 rounded-lg border border-orange-500 hover:bg-gray-700/50">
                 {/* Wallet Icon */}
-                <img src={WalletIcon} alt="Wallet" className="w-5 h-5 filter brightness-0 invert opacity-50" />
+                <img src={WalletIcon} alt="Wallet"  className="w-5 h-5" />
                 
                 <span className="text-sm text-white">{balance}</span>
                 
@@ -276,7 +298,7 @@ const Header: React.FC = () => {
 
                 
                 <button 
-                  className="text-gray-400 hover:text-gray-300"
+                  className="text-white hover:text-orange-500"
                   onClick={() => setIsProfileOpen(!isProfileOpen)}
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -295,7 +317,7 @@ const Header: React.FC = () => {
           ) : (
             <button
               onClick={openModal}
-              className="px-4 py-2 bg-orange-500 text-sm text-amber-950 font-bold rounded-lg hover:bg-orange-400 transition"
+              className="px-4 py-1.5 bg-orange-500 text-sm text-white font-bold rounded-lg hover:bg-orange-600 transition"
             >
               Connect
             </button>
@@ -303,104 +325,23 @@ const Header: React.FC = () => {
         </nav>
       </header>
 
-      {/* Modal for login options */}
-      {isModalOpen && (
-        <div className="fixed inset-0 flex items-start justify-center bg-[#1e2025]/75 backdrop-blur-[1px] z-40 pt-16">
-          <div className="bg-black border border-gray-800 rounded-lg p-6 w-96 text-white z-50">
-            {/* Social Logins Section */}
-            <h2 className="text-lg font-semibold mb-2">Login via Socials</h2>
-            <p className="text-sm text-gray-400 mb-4">
-              The email address of your social account determines your Ape account. Changing to a different email will result in a different Ape account.
-            </p>
-            <button
-              onClick={loginWithGoogle}
-              className="w-full flex items-center justify-center py-2 mb-2 bg-primary border border-gray-800 rounded-lg hover:bg-gray-700 transition"
-            >
-              <img src="https://www.google.com/favicon.ico" alt="Google" className="w-5 h-5 mr-2" />
-              Continue with Google
-            </button>
-            <div className="flex space-x-2 mb-4">
-              <button
-                onClick={loginWithTwitter}
-                className="w-full flex items-center justify-center py-2 bg-primary border border-gray-800 rounded-lg hover:bg-gray-700 transition"
-              >
-                <img src="https://www.twitter.com/favicon.ico" alt="Twitter" className="w-5 h-5 mr-2" />
-                Twitter
-              </button>
-              <button
-                onClick={loginWithDiscord}
-                className="w-full flex items-center justify-center py-2 bg-primary border border-gray-800 rounded-lg hover:bg-gray-700 transition"
-              >
-                <img src="discord.svg" alt="Discord" className="w-5 h-5 mr-2" />
-                Discord
-              </button>
-            </div>
+      {/* Mobile Menu */}
+      <MobileMenu 
+        isOpen={isMobileMenuOpen}
+        selectedMenu={selectedMenu}
+        setSelectedMenu={setSelectedMenu}
+        onClose={() => setIsMobileMenuOpen(false)}
+      />
 
-            {/* Divider */}
-            <div className="relative my-4">
-              <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-gray-700"></div>
-              </div>
-              <div className="relative flex justify-center text-sm">
-                <span className="px-2 bg-gray-900 text-gray-400">OR</span>
-              </div>
-            </div>
-
-            {/* Web3 Logins Section */}
-            <h2 className="text-lg font-semibold mb-2">Login via Web3</h2>
-            <div className="grid grid-cols-2 gap-2">
-              <button
-                onClick={() => {
-                  connectWallet("solana");
-                  closeModal();
-                }}
-                className="flex items-center justify-center py-2 bg-primary border border-gray-800 rounded-lg hover:bg-gray-700 transition"
-              >
-                <img src="phantom.svg" alt="Phantom" className="w-5 h-5 mr-2" />
-                Phantom
-              </button>
-              <button
-                onClick={() => {
-                  connectWallet("solana");
-                  closeModal();
-                }}
-                className="flex items-center justify-center py-2 bg-primary border border-gray-800 rounded-lg hover:bg-gray-700 transition"
-              >
-                <img src="solflare.svg" alt="Solflare" className="w-5 h-5 mr-2" />
-                Solflare
-              </button>
-              <button
-                onClick={() => {
-                  connectWallet("solana");
-                  closeModal();
-                }}
-                className="flex items-center justify-center py-2 bg-primary border border-gray-800 rounded-lg hover:bg-gray-700 transition"
-              >
-                <img src="backpack.ico" alt="Backpack" className="w-5 h-5 mr-2" />
-                Backpack
-              </button>
-              <button
-                onClick={() => {
-                  connectWallet("ethereum");
-                  closeModal();
-                }}
-                className="flex items-center justify-center py-2 bg-primary border border-gray-800 rounded-lg hover:bg-gray-700 transition"
-              >
-                <img src="metamask.svg" alt="MetaMask" className="w-5 h-5 mr-2" />
-                MetaMask
-              </button>
-            </div>
-
-            {/* Close Button */}
-            <button
-              onClick={closeModal}
-              className="mt-4 w-full py-2 border border-primary rounded-lg hover:bg-gray-800 active:!text-neutral-200 transition"
-            >
-              Close
-            </button>
-          </div>
-        </div>
-      )}
+      {/* Login Modal */}
+      <LoginModal 
+        isOpen={isModalOpen}
+        onClose={closeModal}
+        onConnectWallet={connectWallet}
+        onLoginWithGoogle={loginWithGoogle}
+        onLoginWithTwitter={loginWithTwitter}
+        onLoginWithDiscord={loginWithDiscord}
+      />
     </div>
   );
 };

@@ -382,8 +382,7 @@ const Trade: React.FC = () => {
           <button className="text-gray-400 text-sm hover:opacity-80">1h</button>
           <button className="text-orange-500 text-sm hover:opacity-80">24h</button>
           <button className="text-gray-400 text-sm hover:opacity-80">7d</button>
-          {/* <button className="text-gray-400 text-sm hover:opacity-80">⊗</button> */}
-          <button className="text-gray-400 text-sm hover:opacity-80">⊜</button>
+          <button className="text-gray-400 text-sm hover:opacity-80">See More</button>
         </div>
         
         <div className="w-full md:flex-1 md:mx-6">
@@ -424,7 +423,7 @@ const Trade: React.FC = () => {
             </thead>
             <tbody>
               {tokens.map((token) => (
-                <tr key={token.id} className="border-b border-gray-800/50 hover:bg-gray-900/30">
+                <tr key={token.id} className="border-b border-gray-800/50 hover:bg-[#1e2025]">
                   <td className="py-4 px-2 whitespace-nowrap">☆ {token.id}</td>
                   <td className="px-2">
                     <div className="flex items-center gap-2">
